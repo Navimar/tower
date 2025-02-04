@@ -109,7 +109,7 @@ export default {
       pusherSpawnTime -= timedelta;
       return;
     }
-    pusherSpawnTime += 10;
+    pusherSpawnTime += 1;
     let enemy = await en.addEnemy("pusher");
 
     let randomEdge = Math.floor(Math.random() * 4);

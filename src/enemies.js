@@ -8,7 +8,7 @@ const enemies = {
     image: "pusher.unit",
     size: 60,
     do: async (me, timedelta) => {
-      const speed = PXFromMetr(2500 / 1000); // Скорость движения
+      const speed = PXFromMetr(500 / 1000); // Скорость движения
       const repelDistance = PXFromMetr((enemies[me.type].size * 1) / 2); // Минимальная дистанция для отталкивания
 
       // Перемещаем объект в направлении

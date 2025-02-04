@@ -88,8 +88,8 @@ const engine = {
     }
   },
   addProjectile: async (type, startX, startY, dx, dy) => {
-    startX = startX | cn.centerX;
-    startY = startY | cn.centerY;
+    startX = startX || state.towerSprite.x || cn.centerX;
+    startY = startY || state.towerSprite.y || cn.centerY;
     let sprite = new Sprite(
       await texture.get(
         textureUrl(projectiles[type].image),

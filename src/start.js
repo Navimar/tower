@@ -6,7 +6,6 @@ import state from "./state.js";
 
 // Функция для добавления врага
 
-// Экспортируемая функция для создания 500 врагов
 export default async () => {
   const towerSprite = new Sprite(await texture.get(textureUrl("tower"), 150));
   towerSprite.anchor.set(0.5, 0.7);

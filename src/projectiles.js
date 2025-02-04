@@ -1,4 +1,6 @@
 import { PXFromMetr } from "./util.js";
+import state from "./state.js";
+import cn from "./constants.js";
 
 const projectiles = {
   machineBullet: {
@@ -29,31 +31,30 @@ const projectiles = {
       // Найти ближайшего к центру врага
       let closestEnemy = null;
       let closestDistanceSquared = Infinity;
-      const centerX = state.towerSprite.x;
-      const centerY = state.towerSprite.y;
+      if (!projectile.dx || !projectile.dy) {
+        for (let enemy of state.enemies) {
+          let dx = enemy.sprite.x - cn.centerX;
+          let dy = enemy.sprite.y - cn.centerY;
+          let distSquared = dx * dx + dy * dy;
 
-      for (let enemy of state.enemies) {
-        let dx = enemy.sprite.x - centerX;
-        let dy = enemy.sprite.y - centerY;
-        let distSquared = dx * dx + dy * dy;
-
-        if (distSquared < closestDistanceSquared) {
-          closestDistanceSquared = distSquared;
-          closestEnemy = enemy;
+          if (distSquared < closestDistanceSquared) {
+            closestDistanceSquared = distSquared;
+            closestEnemy = enemy;
+          }
         }
-      }
 
-      // Если ближайший враг найден, направляемся к нему
-      if (closestEnemy) {
-        let dxToEnemy = closestEnemy.sprite.x - projectile.sprite.x;
-        let dyToEnemy = closestEnemy.sprite.y - projectile.sprite.y;
-        let distToEnemy = Math.sqrt(
-          dxToEnemy * dxToEnemy + dyToEnemy * dyToEnemy,
-        );
+        // Если ближайший враг найден, направляемся к нему
+        if (closestEnemy) {
+          let dxToEnemy = closestEnemy.sprite.x - projectile.sprite.x;
+          let dyToEnemy = closestEnemy.sprite.y - projectile.sprite.y;
+          let distToEnemy = Math.sqrt(
+            dxToEnemy * dxToEnemy + dyToEnemy * dyToEnemy,
+          );
 
-        if (distToEnemy > 0) {
-          projectile.dx = dxToEnemy / distToEnemy;
-          projectile.dy = dyToEnemy / distToEnemy;
+          if (distToEnemy > 0) {
+            projectile.dx = dxToEnemy / distToEnemy;
+            projectile.dy = dyToEnemy / distToEnemy;
+          }
         }
       }
 
